@@ -13,24 +13,4 @@ export class AppController {
     private configService: ConfigService,
     private authService: AuthService
   ) { }
-
-  @Public()
-  @UseGuards(LocalAuthGuard)
-  @Post('/login')
-  handleLogin(@Request() req) {
-    return this.authService.login(req.user);
-  }
-
-  @Public()
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile1')
-  getProfile1(@Request() req) {
-    return req.user;
-  }
 }
