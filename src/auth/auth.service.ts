@@ -1,14 +1,15 @@
 import { IUser } from '@/users/users.interface';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/users/users.service';;
+import { RegisterUserDto } from '@/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
 
     constructor(
         private usersService: UsersService,
-        private jwtService: JwtService
+        private jwtService: JwtService,
     ) { }
 
     //ussername/ pass là 2 tham số thư viện passport nó ném về
@@ -41,6 +42,20 @@ export class AuthService {
             email,
             role
         };
+    }
+
+    async register(registerUserDto: RegisterUserDto) {
+        let check = await this.usersService.findOneByUsername(registerUserDto.email);
+
+        if (check) {
+            return 'Email đã tồn tại';
+        } else {
+            let newUser = await this.usersService.register(registerUserDto);
+            return {
+                _id: newUser?._id,
+                createdAt: newUser?.createdAt
+            };
+        }
     }
 
 }
