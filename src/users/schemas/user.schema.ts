@@ -26,6 +26,9 @@ export class User {
     @Prop()
     role: string;
 
+    @Prop()
+    refresh_token: string;
+
     @Prop({ type: Object })
     company: {
         _id: mongoose.Schema.Types.ObjectId;

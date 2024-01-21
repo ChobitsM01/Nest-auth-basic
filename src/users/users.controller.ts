@@ -16,10 +16,10 @@ export class UsersController {
   }
 
   @Get()
-  @ResponseMessage("Get companies with paginate")
+  @ResponseMessage("Get users with paginate")
   fetchUser(
-    @Query('page') currentPage,
-    @Query('limit') limits,
+    @Query('current') currentPage,
+    @Query('pageSize') limits,
     @Query() qs
   ) {
     return this.usersService.fetchUserWithPaginate(+currentPage, +limits, qs);

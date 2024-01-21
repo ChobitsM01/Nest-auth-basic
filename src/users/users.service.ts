@@ -63,8 +63,8 @@ export class UsersService {
 
   async fetchUserWithPaginate(currentPage: number, limit: number, qs: string) {
     const { filter, population } = aqp(qs);
-    delete filter.page;
-    delete filter.limit;
+    delete filter.current;
+    delete filter.pageSize;
     let { sort } = aqp(qs);
     let offset = (+currentPage - 1) * (+limit);
     let defaultLimit = +limit ? +limit : 10;
@@ -145,5 +145,16 @@ export class UsersService {
       role: "USER"
     })
     return user;
+  }
+
+  async updateUserToken(refresh_token: string, _id: string) {
+    return await this.userModel.updateOne(
+      { _id },
+      { refresh_token }
+    )
+  }
+
+  async findOneByToken(refresh_token) {
+    return await this.userModel.findOne({ refresh_token });
   }
 }
