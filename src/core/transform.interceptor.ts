@@ -31,10 +31,7 @@ export class TransformInterceptor<T>
         map((data) => ({
           statusCode: context.switchToHttp().getResponse().statusCode,
           message: this.reflector.get<string>(RESPONSE_MESSAGE, context.getHandler()) || data.message || '',
-          data: {
-            result: data,
-            meta: {}
-          }
+          data
         })),
       );
   }

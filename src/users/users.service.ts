@@ -48,10 +48,6 @@ export class UsersService {
     }
   }
 
-  findAll() {
-    return 'all user';
-  }
-
   async findOne(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id))
       return `Id không đúng định dạng`;
